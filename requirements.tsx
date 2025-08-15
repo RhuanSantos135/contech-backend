@@ -1,0 +1,17 @@
+annotated-types==0.7.0
+anyio==4.10.0
+argon2-cffi==23.1.0
+argon2-cffi-bindings==25.1.0
+cffi==1.17.1
+fastapi==0.116.1
+greenlet==3.2.4
+idna==3.10
+pwdlib==0.2.1
+pycparser==2.22
+pydantic==2.11.7
+pydantic_core==2.33.2
+sniffio==1.3.1
+SQLAlchemy==2.0.43
+starlette==0.47.2
+typing-inspection==0.4.1
+typing_extensions==4.14.1

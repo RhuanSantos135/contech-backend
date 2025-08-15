@@ -1,9 +1,11 @@
 from fastapi import FastAPI
+from app.routers import router
 
 
-app = FastAPI(version='v1')
+def create_application() -> FastAPI:
+    application = FastAPI()
+    application.include_router(router)
+    return application
 
 
-@app.get("/")
-def root_head():
-    return {'status': 'ok'}
+app = create_application()
