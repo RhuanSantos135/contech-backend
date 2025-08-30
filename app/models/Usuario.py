@@ -7,3 +7,4 @@ class Usuario(Base):
     usuarionome = Column(String)
     usuariosenha = Column(String)
     usuarioemail = Column(String)
+    usuarioempresaid = Column(Integer)

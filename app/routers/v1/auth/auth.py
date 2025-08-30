@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app.security.auth import (verify_hash , create_access_token)
 from app.models.Usuario import Usuario
 from app.db.database import get_database
-router = APIRouter(prefix="/auth")
+router = APIRouter(prefix="/auth", tags=['Auth'])
 
 
 @router.post("/login")
@@ -15,12 +15,9 @@ def login(request: Request , form_data: OAuth2PasswordRequestForm = Depends(), d
         if not user:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="user not found")
         
-        
         if not verify_hash(form_data.password, user.usuariosenha):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="password incorrect")
-                
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="password incorrect")                
         token = create_access_token(data={"username": user.usuarionome})
-
         return {
             "message": "user authenticator",
             "user": {
@@ -30,7 +27,6 @@ def login(request: Request , form_data: OAuth2PasswordRequestForm = Depends(), d
             },
             "token": token
         }
-
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"{e}")
 
