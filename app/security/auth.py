@@ -24,6 +24,7 @@ def create_access_token(data: dict) -> str:
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(db: Session = Depends(get_database), token: str = Depends(oauth2_scheme)):
+
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -31,7 +32,7 @@ def get_current_user(db: Session = Depends(get_database), token: str = Depends(o
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])  
-        subject_email = payload.get("sub")
+        subject_email = payload.get("username")
         if not subject_email:
             raise credentials_exception
         user = db.query(Usuario).filter(Usuario.usuarioemail == subject_email).first()

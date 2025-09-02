@@ -4,13 +4,13 @@ from app.db.database import get_database
 from app.models.Cliente import Cliente
 from .schemas import ClienteCreate  , ClienteResponse
 from datetime import datetime
-
+from app.security.auth import get_current_user
 
 router = APIRouter(prefix="/clientes", tags=["Cliente"])
 
 
 @router.post("/create", status_code=status.HTTP_201_CREATED, response_model=ClienteResponse)
-def create_cliente(request: Request, cliente: ClienteCreate, db: Session = Depends(get_database)):
+def create_cliente(request: Request, cliente: ClienteCreate, db: Session = Depends(get_database), current_user: str = Depends(get_current_user)):
     try:
         cliente_exist = db.query(Cliente).filter(Cliente.clienteemail == cliente.clienteemail).first()
         if cliente_exist:

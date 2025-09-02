@@ -17,7 +17,7 @@ def login(request: Request , form_data: OAuth2PasswordRequestForm = Depends(), d
         
         if not verify_hash(form_data.password, user.usuariosenha):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="password incorrect")                
-        token = create_access_token(data={"username": user.usuarionome})
+        token = create_access_token(data={"username": user.usuarioemail})
         return {
             "message": "user authenticator",
             "user": {
