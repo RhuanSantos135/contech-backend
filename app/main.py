@@ -1,11 +1,8 @@
 from fastapi import FastAPI
-from app.routers import router
+from app.conf.conf import ALGORITHM
+from app.routers.v1.users.users import router as users_router
+application = FastAPI()
 
-
-def create_application() -> FastAPI:
-    application = FastAPI()
-    application.include_router(router)
-    return application
-
-
-app = create_application()
+@application.get("/")
+def head():
+    application.include_router(users_router)
